@@ -42,7 +42,7 @@ namespace AnonymousMessageApplication.Migrations
             migrationBuilder.InsertData(
                 table: "Admins",
                 columns: new[] { "Id", "PasswordHash", "Role", "Username" },
-                values: new object[] { new Guid("20743763-9e79-4263-8872-ecab221aedcd"), "$2a$11$4r4y2H/kx4f1BGKD4cuE0.ME6jo1rStqXI00C7YBF9kfKrt2YNwsq", "SuperAdmin", "superadmin" });
+                values: new object[] { new Guid("b96b10c3-8867-41cd-8d72-54dc78852f4b"), "$2a$11$1dd0MVmwzDyOGwuoF4A8bu295WzOVhJXFLVTD63mRYmdHUQ4vNlrm", "SuperAdmin", "superadmin" });
         }
 
         /// <inheritdoc />
