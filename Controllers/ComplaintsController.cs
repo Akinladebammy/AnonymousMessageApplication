@@ -90,22 +90,5 @@ namespace AnonymousMessageApplication.Controllers
             return Ok(complaint);
         }
 
-        // Get all admins (Only accessible by SuperAdmin)
-        [HttpGet("admins")]
-        [Authorize(Roles = "SuperAdmin")]
-        public async Task<IActionResult> GetAllAdmins()
-        {
-            var admins = await _context.Admins
-                .Select(a => new
-                {
-                    a.Id,
-                    a.Username,
-                    a.Role
-                })
-                .ToListAsync();
-
-            return Ok(admins);
-        }
-
     }
 }
