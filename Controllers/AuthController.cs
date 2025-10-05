@@ -77,7 +77,8 @@ namespace AnonymousMessageApplication.Controllers
             {
                 Token = new JwtSecurityTokenHandler().WriteToken(token),
                 Username = admin.Username,
-                UserId = admin.Id
+                UserId = admin.Id,
+                Role = admin.Role
             });
         }
 
