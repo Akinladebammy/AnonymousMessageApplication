@@ -98,5 +98,33 @@ namespace AnonymousMessageApplication.Controllers
             return Ok(admins);
         }
 
+        // POST: api/Auth/reset-password
+        [HttpPost("reset-password")]
+        [Authorize(Roles = "Admin,SuperAdmin")]
+        public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordRequest request)
+        {
+            // Get logged-in admin ID from JWT token
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (userId == null)
+                return Unauthorized("Invalid token or user not found.");
+
+            var admin = await _context.Admins.FirstOrDefaultAsync(a => a.Id.ToString() == userId);
+
+            if (admin == null)
+                return NotFound("Admin not found.");
+
+            // Verify old password
+            if (!BCrypt.Net.BCrypt.Verify(request.OldPassword, admin.PasswordHash))
+                return BadRequest("Old password is incorrect.");
+
+            // Hash new password
+            admin.PasswordHash = BCrypt.Net.BCrypt.HashPassword(request.NewPassword);
+            await _context.SaveChangesAsync();
+
+            return Ok(new { Message = "Password updated successfully." });
+        }
+
+
     }
 }
