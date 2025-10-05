@@ -60,6 +60,21 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 builder.Services.AddAuthorization();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowNextApp", policy =>
+    {
+        policy.WithOrigins(
+            "http://localhost:3000"                // for local Next.js
+            // replace with your deployed Next.js site URL
+        )
+        .AllowAnyHeader()
+        .AllowAnyMethod()
+        .AllowCredentials();
+    });
+});
+
+
 var app = builder.Build();
 
 // Configure HTTP pipeline
@@ -70,6 +85,8 @@ if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("AllowNextApp");
 
 // IMPORTANT: Authentication must come before Authorization
 app.UseAuthentication();
