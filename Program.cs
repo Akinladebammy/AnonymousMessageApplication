@@ -65,8 +65,9 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowNextApp", policy =>
     {
         policy.WithOrigins(
-            "http://localhost:3000"                // for local Next.js
-            // replace with your deployed Next.js site URL
+            "http://localhost:3000",                
+            "https://nacos-weld.vercel.app"
+
         )
         .AllowAnyHeader()
         .AllowAnyMethod()
